@@ -14,13 +14,19 @@ function nowIso() {
 }
 
 async function fetchJson(url) {
-  const res = await fetch(url, { headers: { "user-agent": "tv-local-macro-onchain/0.1" } });
+  const res = await fetch(url, {
+    headers: { "user-agent": "tv-local-macro-onchain/0.1" },
+    signal: AbortSignal.timeout(8000)
+  });
   if (!res.ok) throw new Error(`${res.status} ${url}`);
   return res.json();
 }
 
 async function fetchText(url) {
-  const res = await fetch(url, { headers: { "user-agent": "tv-local-macro-onchain/0.1" } });
+  const res = await fetch(url, {
+    headers: { "user-agent": "tv-local-macro-onchain/0.1" },
+    signal: AbortSignal.timeout(8000)
+  });
   if (!res.ok) throw new Error(`${res.status} ${url}`);
   return res.text();
 }
@@ -90,15 +96,9 @@ async function buildSeries() {
     () => fredSeries("DTWEXBGS", "Trade Weighted Broad Dollar Index"),
     () => fredSeries("WTISPLC", "WTI Spot Price")
   ];
-  const datasets = [];
-  const errors = [];
-  for (const fetcher of fetchers) {
-    try {
-      datasets.push(await fetcher());
-    } catch (error) {
-      errors.push(String(error.message || error));
-    }
-  }
+  const results = await Promise.allSettled(fetchers.map((fetcher) => fetcher()));
+  const datasets = results.filter((item) => item.status === "fulfilled").map((item) => item.value);
+  const errors = results.filter((item) => item.status === "rejected").map((item) => String(item.reason?.message || item.reason));
   const latest_values = {};
   for (const dataset of datasets) {
     const rows = dataset.bars || dataset.points || [];
