@@ -1,0 +1,22 @@
+{
+  "timezone": "Asia/Seoul",
+  "sessions": [
+    {
+      "id": "asia_open",
+      "label": "아시아 장 시작",
+      "time": "09:00"
+    },
+    {
+      "id": "london_open",
+      "label": "런던 장 시작",
+      "time": "16:00"
+    },
+    {
+      "id": "us_open",
+      "label": "미장 시작",
+      "time": "22:30"
+    }
+  ],
+  "qwen": true,
+  "oracle": false
+}

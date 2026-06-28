@@ -1,0 +1,273 @@
+{
+  "generated_at": "2026-06-28T08:31:49+00:00",
+  "session": "asia_open",
+  "template_version": "yonsei_4doc_macro_onchain_v1",
+  "agent_chain": {
+    "deterministic_pass": "completed",
+    "qwen": {
+      "configured": false,
+      "status": "skipped",
+      "reason": "QWEN_API_KEY is not set"
+    },
+    "oracle": {
+      "requested": false,
+      "status": "skipped"
+    }
+  },
+  "summary": {
+    "title": "asia_open 장 시작 온체인·매크로 브리핑",
+    "bias": "하단 지지 근접",
+    "one_liner": "BTC는 60,232 부근, 매크로 판정은 `단기 위험선호 회복 여지`. 가까운 지지는 60,000. 가까운 저항은 60,500. 온체인 비용기준·URPD·고래 거래소 순유입은 외부 차트 확인 후 신뢰도를 갱신한다."
+  },
+  "contexts": {
+    "price": {
+      "current": 60231.99,
+      "last_time": 1782633600,
+      "ranges": {
+        "24h_high": 60941.17,
+        "24h_low": 59753.48,
+        "72h_high": 61792.0,
+        "72h_low": 58115.01,
+        "10d_high": 65622.83,
+        "10d_low": 58115.01
+      },
+      "atr_1h_proxy": 253.37874999999954,
+      "volume_profile": [
+        {
+          "price": 62500.0,
+          "volume_share": 0.15806797854903498,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 15.8%"
+        },
+        {
+          "price": 59500.0,
+          "volume_share": 0.14691491573740903,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 14.7%"
+        },
+        {
+          "price": 60000.0,
+          "volume_share": 0.14571640245309558,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 14.6%"
+        },
+        {
+          "price": 64000.0,
+          "volume_share": 0.10907897710875389,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 10.9%"
+        },
+        {
+          "price": 63000.0,
+          "volume_share": 0.09329125659709799,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 9.3%"
+        },
+        {
+          "price": 60500.0,
+          "volume_share": 0.061465858530286695,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 6.1%"
+        },
+        {
+          "price": 61000.0,
+          "volume_share": 0.06009103903078053,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 6.0%"
+        }
+      ],
+      "nearest_volume_nodes": [
+        {
+          "price": 60000.0,
+          "volume_share": 0.14571640245309558,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 14.6%"
+        },
+        {
+          "price": 60500.0,
+          "volume_share": 0.061465858530286695,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 6.1%"
+        },
+        {
+          "price": 59500.0,
+          "volume_share": 0.14691491573740903,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 14.7%"
+        },
+        {
+          "price": 61000.0,
+          "volume_share": 0.06009103903078053,
+          "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 6.0%"
+        }
+      ]
+    },
+    "macro": {
+      "label": "단기 위험선호 회복 여지",
+      "pressure_score": 1,
+      "values": {
+        "VIX": 18.89,
+        "VIX_5d_change": 2.490000000000002,
+        "FedFunds": 3.63,
+        "US10Y": 4.4,
+        "US10Y_5d_change": -0.08999999999999986,
+        "BroadDollar": 120.3958,
+        "BroadDollar_5d_change": 0.27839999999999065,
+        "CPI": 333.979,
+        "CoreCPI": 336.121,
+        "NFP": 159001.0,
+        "AverageHourlyEarnings": 37.53
+      },
+      "read": "PCx6Yyz2/SOZBShSh/SZgxmcm8 기준으로 DXY·금리·VIX가 올라가면 온체인 지지가 있어도 조기 롱 신뢰도를 낮춘다."
+    },
+    "indicator_traversal": [
+      {
+        "group": "가격·매크로·정책",
+        "total": 15,
+        "local_series": 12,
+        "implemented_or_builtin": 0,
+        "external_chart": 3,
+        "usage": "장 시작 브리핑의 첫 필터. 위험자산 환경, 금리, VIX, 달러 압력을 판정한다."
+      },
+      {
+        "group": "온체인 비용기준·바닥 모델",
+        "total": 7,
+        "local_series": 0,
+        "implemented_or_builtin": 0,
+        "external_chart": 7,
+        "usage": "Realized/STH/LTH 비용기준과 CVDD/Balanced 류로 중기 지지·최후방 바닥 후보를 잡는다."
+      },
+      {
+        "group": "매집·고래·거래소 수급",
+        "total": 6,
+        "local_series": 0,
+        "implemented_or_builtin": 0,
+        "external_chart": 6,
+        "usage": "고래·거래소 순유입/순유출과 코호트 ATS로 반등이 분산인지 매집인지 분해한다."
+      },
+      {
+        "group": "장기 보유자·코인 나이·휴면 공급",
+        "total": 13,
+        "local_series": 0,
+        "implemented_or_builtin": 0,
+        "external_chart": 13,
+        "usage": "LTH, HODL Waves, CDD, Revived Supply로 오래된 코인의 매도 전환 여부를 본다."
+      },
+      {
+        "group": "STH/LTH 손익·URPD",
+        "total": 8,
+        "local_series": 0,
+        "implemented_or_builtin": 0,
+        "external_chart": 8,
+        "usage": "URPD와 STH 손익권으로 단기 본전 매물대와 지지 공백을 잡는다."
+      },
+      {
+        "group": "기술·파생·실행 보조",
+        "total": 6,
+        "local_series": 0,
+        "implemented_or_builtin": 2,
+        "external_chart": 4,
+        "usage": "RSI, PVT, OI, funding, 청산맵으로 실행 타이밍과 레버리지 위험을 보정한다."
+      }
+    ]
+  },
+  "price_levels": [
+    {
+      "price": 58000.0,
+      "kind": "support",
+      "label": "10일 저점, 실패 시 추세 가속 후보",
+      "confidence": "medium",
+      "evidence": "최근 1시간봉 가격 구조에서 산출. URPD/Realized Price 실제값 확인 전까지 단기 지지 후보로만 사용한다."
+    },
+    {
+      "price": 59500.0,
+      "kind": "support",
+      "label": "거래량 프로파일 매물대",
+      "confidence": "medium",
+      "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 14.7%"
+    },
+    {
+      "price": 60000.0,
+      "kind": "support",
+      "label": "거래량 프로파일 매물대",
+      "confidence": "medium",
+      "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 14.6%"
+    },
+    {
+      "price": 60500.0,
+      "kind": "resistance",
+      "label": "거래량 프로파일 매물대",
+      "confidence": "medium",
+      "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 6.1%"
+    },
+    {
+      "price": 61000.0,
+      "kind": "resistance",
+      "label": "거래량 프로파일 매물대",
+      "confidence": "medium",
+      "evidence": "최근 10일 1시간봉 거래량 프로파일 상위권 매물대, 점유율 6.0%"
+    },
+    {
+      "price": 62000.0,
+      "kind": "resistance",
+      "label": "72시간 고점 저항",
+      "confidence": "medium",
+      "evidence": "최근 1시간봉 가격 구조에서 산출. STH Realized Price와 URPD 상단 매물대 확인 시 신뢰도를 올린다."
+    },
+    {
+      "price": 65500.0,
+      "kind": "resistance",
+      "label": "10일 고점, 회복 시 구조 전환 확인",
+      "confidence": "medium",
+      "evidence": "최근 1시간봉 가격 구조에서 산출. STH Realized Price와 URPD 상단 매물대 확인 시 신뢰도를 올린다."
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "기본: 손실권 단기 반등 검증",
+      "probability": "45%",
+      "trigger": "60,000 부근 방어 후 60,500 회복 시도",
+      "support": "60,000",
+      "resistance": "60,500",
+      "response": "분할 접근. 반등이 STH 비용기준/URPD 상단 매물대에 막히는지 확인하고, 거래소 순유입 증가 시 롱 비중을 줄인다."
+    },
+    {
+      "name": "상방: 매크로 진정 + 매집 확인",
+      "probability": "30%",
+      "trigger": "VIX·금리·달러 압력 완화와 함께 60,500 돌파",
+      "support": "60,500 돌파 후 지지 전환",
+      "resistance": "65,500",
+      "response": "돌파 추격보다 재테스트 확인. ATS/거래소 순유출/LTH 공급 증가가 동반되면 레버리지 허용폭을 키운다."
+    },
+    {
+      "name": "하방: 지지 공백 재가격화",
+      "probability": "25%",
+      "trigger": "60,000 이탈 + VIX/금리/달러 압력 재상승",
+      "support": "58,000",
+      "resistance": "60,000 이탈 후 저항 전환",
+      "response": "롱 대기. URPD상 아래 공급 공백, STH 손실 확대, 고래 거래소 순입금이 확인되면 다음 비용기준 지지까지 열어둔다."
+    }
+  ],
+  "briefing_sections": [
+    {
+      "heading": "1. 매크로 관문",
+      "body": "단기 위험선호 회복 여지. VIX, 금리, 달러지수 대체값을 우선 확인한다. PCx6Yyz2/SOZBShSh/SZgxmcm8 기준으로 DXY·금리·VIX가 올라가면 온체인 지지가 있어도 조기 롱 신뢰도를 낮춘다."
+    },
+    {
+      "heading": "2. 가격·매물대",
+      "body": "현재가는 60,232 부근이다. 최근 1시간봉 고저점과 거래량 프로파일 기준 주요 가격대는 10일 저점, 실패 시 추세 가속 후보 58,000, 거래량 프로파일 매물대 59,500, 거래량 프로파일 매물대 60,000, 거래량 프로파일 매물대 60,500, 거래량 프로파일 매물대 61,000, 72시간 고점 저항 62,000, 10일 고점, 회복 시 구조 전환 확인 65,500이다."
+    },
+    {
+      "heading": "3. 온체인 비용기준·바닥 모델",
+      "body": "Realized Price, STH/LTH Realized Price, Balanced Price, CVDD, Difficulty 계열은 외부 무료 차트에서 최신값을 순회한다. 가격이 STH 비용기준 아래면 반등은 본전 매물 검증이고, Realized/LTH/CVDD 쪽은 깊은 지지 후보가 된다."
+    },
+    {
+      "heading": "4. 수급·코인 나이",
+      "body": "ATS, 고래 거래소 순유입, Liveliness, LTH Supply, HODL Waves, CDD, Revived Supply를 순회해 분산인지 흡수인지 판단한다. 오래된 코인이 움직이지 않고 거래소 순유출이면 하락 중 흡수로 분류한다."
+    },
+    {
+      "heading": "5. 실행 보조",
+      "body": "RSI/PVT, funding/OI, 청산맵은 진입 타이밍 보정용이다. 방향 판정은 온체인·매크로가 먼저이고, 기술 지표는 레버리지 크기와 손절 위치를 정하는 데 쓴다."
+    },
+    {
+      "heading": "6. 전수 순회 상태",
+      "body": "가격·매크로·정책: 15개 / 온체인 비용기준·바닥 모델: 7개 / 매집·고래·거래소 수급: 6개 / 장기 보유자·코인 나이·휴면 공급: 13개 / STH/LTH 손익·URPD: 8개 / 기술·파생·실행 보조: 6개"
+    }
+  ],
+  "source_documents": [
+    "PCx6Yyz2_supply_analysis_template_20260628_KR.md",
+    "SOZBShSh_detox_analysis_template_20260628_KR.md",
+    "004_SZgxmcm8.md",
+    "005_02Axw6S0.md"
+  ]
+}

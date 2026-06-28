@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BTC Macro Onchain Agent</title>
+    <link rel="stylesheet" href="/static/css/macro_onchain.css" />
+  </head>
+  <body>
+    <main class="dashboard-shell">
+      <header class="dashboard-header">
+        <div>
+          <div class="eyebrow">tv_local</div>
+          <h1>온체인·매크로 수급 대시보드</h1>
+        </div>
+        <div id="status" class="status">로딩 중</div>
+      </header>
+
+      <section class="snapshot-grid" id="snapshotGrid"></section>
+
+      <section class="chart-grid">
+        <article class="chart-panel main-price">
+          <div class="panel-head">
+            <h2>BTCUSDT 1H</h2>
+            <a href="https://www.tradingview.com/chart/?symbol=BINANCE:BTCUSDT" target="_blank" rel="noreferrer">TradingView</a>
+          </div>
+          <div id="btcChart" class="chart"></div>
+        </article>
+        <article class="chart-panel">
+          <div class="panel-head">
+            <h2>VIX / 금리</h2>
+            <a href="https://fred.stlouisfed.org/series/VIXCLS" target="_blank" rel="noreferrer">FRED</a>
+          </div>
+          <div id="riskChart" class="chart"></div>
+        </article>
+        <article class="chart-panel">
+          <div class="panel-head">
+            <h2>CPI / 고용 / 달러</h2>
+            <a href="https://fred.stlouisfed.org/" target="_blank" rel="noreferrer">FRED</a>
+          </div>
+          <div id="macroChart" class="chart"></div>
+        </article>
+      </section>
+
+      <section class="briefing-layout">
+        <article class="briefing-panel">
+          <div class="panel-head">
+            <h2>AI 장 시작 브리핑</h2>
+            <span id="briefingMeta" class="source-meta">대기 중</span>
+          </div>
+          <div id="briefingSummary" class="briefing-summary"></div>
+          <div id="briefingSections" class="briefing-sections"></div>
+        </article>
+        <article class="briefing-panel">
+          <div class="panel-head">
+            <h2>시나리오 3개</h2>
+            <span id="scheduleMeta" class="source-meta">스케줄 확인 중</span>
+          </div>
+          <div id="scenarioList" class="scenario-list"></div>
+        </article>
+      </section>
+
+      <section class="source-image-panel">
+        <div class="panel-head">
+          <h2>4개 원문 이미지 확인</h2>
+          <span class="source-meta">004 매크로 · 005 공급역학 · 021 수급/바닥모델 · 036 디톡스/URPD</span>
+        </div>
+        <div id="sourceImages" class="source-images"></div>
+      </section>
+
+      <section class="source-layout">
+        <aside class="source-filter">
+          <h2>분석 축</h2>
+          <div id="groupButtons" class="group-buttons"></div>
+        </aside>
+        <section class="source-panel">
+          <div class="panel-head">
+            <h2 id="sourceTitle">공급처 매핑</h2>
+            <a href="/static/index.html">기존 차트</a>
+          </div>
+          <div id="sourceTable" class="source-table"></div>
+        </section>
+      </section>
+    </main>
+    <script src="/static/vendor/lightweight-charts.standalone.production.js"></script>
+    <script src="/static/js/macro_onchain.js?v=vercel_20260628_1"></script>
+  </body>
+</html>

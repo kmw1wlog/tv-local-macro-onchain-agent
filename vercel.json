@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
+  "functions": {
+    "api/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron?session=asia_open",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron?session=london_open",
+      "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/cron?session=us_open",
+      "schedule": "30 13 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    }
+  ]
+}

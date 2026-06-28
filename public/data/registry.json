@@ -1,0 +1,433 @@
+{
+  "generated_at": "2026-06-28T08:31:46+00:00",
+  "document_basis": [
+    "PCx6Yyz2_supply_analysis_template_20260628_KR.md",
+    "SOZBShSh_detox_analysis_template_20260628_KR.md",
+    "004_SZgxmcm8.md",
+    "005_02Axw6S0.md"
+  ],
+  "groups": [
+    {
+      "name": "가격·매크로·정책",
+      "items": [
+        {
+          "indicator": "BTC 현물 OHLC",
+          "provider": "Binance/TradingView",
+          "url": "https://www.tradingview.com/chart/?symbol=BINANCE:BTCUSDT",
+          "access": "무료 차트 + 무료 REST",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "DXY",
+          "provider": "TradingView",
+          "url": "https://www.tradingview.com/chart/?symbol=TVC:DXY",
+          "access": "무료 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "달러지수 대체 Broad Dollar Index",
+          "provider": "FRED DTWEXBGS",
+          "url": "https://fred.stlouisfed.org/series/DTWEXBGS",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "NASDAQ/NDX/QQQ/SPX/SPY",
+          "provider": "TradingView/FRED",
+          "url": "https://www.tradingview.com/chart/?symbol=NASDAQ:NDX",
+          "access": "무료 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "VIX",
+          "provider": "FRED VIXCLS/TradingView",
+          "url": "https://fred.stlouisfed.org/series/VIXCLS",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "WTI/Brent 원유",
+          "provider": "TradingView/FRED",
+          "url": "https://fred.stlouisfed.org/series/WTISPLC",
+          "access": "무료 월간 데이터, TradingView 실시간 차트",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "CPI headline",
+          "provider": "BLS/FRED CPIAUCSL",
+          "url": "https://fred.stlouisfed.org/series/CPIAUCSL",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "Core CPI",
+          "provider": "BLS/FRED CPILFESL",
+          "url": "https://fred.stlouisfed.org/series/CPILFESL",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "식료품 CPI",
+          "provider": "BLS/FRED CPIUFDSL",
+          "url": "https://fred.stlouisfed.org/series/CPIUFDSL",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "주거 CPI",
+          "provider": "BLS/FRED CUSR0000SAH1",
+          "url": "https://fred.stlouisfed.org/series/CUSR0000SAH1",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "고용 NFP",
+          "provider": "BLS/FRED PAYEMS",
+          "url": "https://fred.stlouisfed.org/series/PAYEMS",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "시간당 임금",
+          "provider": "BLS/FRED CES0500000003",
+          "url": "https://fred.stlouisfed.org/series/CES0500000003",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "FedWatch 금리 기대",
+          "provider": "CME FedWatch",
+          "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Fed Funds/정책금리",
+          "provider": "FRED DFF",
+          "url": "https://fred.stlouisfed.org/series/DFF",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        },
+        {
+          "indicator": "10년물 금리",
+          "provider": "FRED DGS10",
+          "url": "https://fred.stlouisfed.org/series/DGS10",
+          "access": "무료 데이터",
+          "local_status": "local_series"
+        }
+      ]
+    },
+    {
+      "name": "온체인 비용기준·바닥 모델",
+      "items": [
+        {
+          "indicator": "Realized Price",
+          "provider": "Bitbo/Checkonchain/CryptoQuant/Glassnode",
+          "url": "https://charts.bitbo.io/realized-price/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "STH Realized Price",
+          "provider": "Bitbo/MacroMicro/Glassnode",
+          "url": "https://charts.bitbo.io/sth-realized-price/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "LTH Realized Price",
+          "provider": "Bitbo/MacroMicro/Glassnode",
+          "url": "https://charts.bitbo.io/lth-realized-price/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Balanced Price",
+          "provider": "Bitbo/Glassnode/BGeometrics",
+          "url": "https://charts.bitbo.io/balanced-price/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "CVDD",
+          "provider": "Bitbo/BGeometrics",
+          "url": "https://charts.bitbo.io/cvdd/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Difficulty Regression Model",
+          "provider": "Glassnode/Bitbo difficulty estimate",
+          "url": "https://charts.bitbo.io/difficulty-estimate/",
+          "access": "무료 웹 차트 후보",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Delta/Terminal/기타 극단 모델",
+          "provider": "Bitbo/Checkonchain/BGeometrics",
+          "url": "https://charts.bitbo.io/terminal/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        }
+      ]
+    },
+    {
+      "name": "매집·고래·거래소 수급",
+      "items": [
+        {
+          "indicator": "Accumulation Trend Score",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/charts/indicators.AccumulationTrendScore",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "ATS by Wallet Cohort",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/charts/indicators.AccumulationTrendScoreByWalletSize30D",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Whale Net Volume To/From Exchanges [1k+ BTC]",
+          "provider": "Glassnode/CryptoQuant/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료 웹 차트 후보",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Exchange Net Position Change",
+          "provider": "Glassnode/CryptoQuant/Checkonchain",
+          "url": "https://cryptoquant.com/asset/btc/chart/exchange-flows/exchange-netflow-total",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Exchange Balance/Reserve",
+          "provider": "CryptoQuant/Glassnode",
+          "url": "https://cryptoquant.com/asset/btc/chart/exchange-flows/exchange-reserve",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Exchange Balance vs LTH/STH",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        }
+      ]
+    },
+    {
+      "name": "장기 보유자·코인 나이·휴면 공급",
+      "items": [
+        {
+          "indicator": "Liveliness",
+          "provider": "Checkonchain/Glassnode",
+          "url": "https://checkonchain.com/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "HODLer Net Position Change",
+          "provider": "Glassnode/Checkonchain",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Cumulative HODLer Position Change",
+          "provider": "Glassnode",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Total Supply Held by LTH",
+          "provider": "Glassnode/Checkonchain/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Percent Supply Last Active 1+ Years",
+          "provider": "Glassnode/Bitbo HODL holdings",
+          "url": "https://charts.bitbo.io/hodl-holdings/",
+          "access": "무료 웹 차트 후보",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "HODL Waves",
+          "provider": "Bitbo/Glassnode",
+          "url": "https://charts.bitbo.io/2y-hodl-wave/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Realized Cap HODL Waves",
+          "provider": "Glassnode/Checkonchain",
+          "url": "https://studio.glassnode.com/charts/supply.RcapHodlWaves?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "RHODL",
+          "provider": "Checkonchain/Glassnode",
+          "url": "https://checkonchain.com/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "SVAB 6M+",
+          "provider": "Glassnode/Checkonchain",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "CDD-90",
+          "provider": "Checkonchain/Glassnode",
+          "url": "https://checkonchain.com/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Revived Supply 1Y+ Z-Score",
+          "provider": "Glassnode/Checkonchain",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Accumulation Addresses",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Illiquid Supply",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        }
+      ]
+    },
+    {
+      "name": "STH/LTH 손익·URPD",
+      "items": [
+        {
+          "indicator": "Entity-adjusted URPD",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Percent Supply in Profit",
+          "provider": "Checkonchain/Glassnode/Bitbo",
+          "url": "https://checkonchain.com/",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Total STH Supply in Loss",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Percent STH Supply in Loss",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Total Supply in Profit Held by STH",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "STH Supply",
+          "provider": "Glassnode/Newhedge/Checkonchain",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "STH 30d Position Change",
+          "provider": "Glassnode/Newhedge",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Young Coin RCap/USD Wealth",
+          "provider": "Glassnode/Checkonchain",
+          "url": "https://studio.glassnode.com/metrics?a=BTC",
+          "access": "무료/계정 차트 확인",
+          "local_status": "external_chart"
+        }
+      ]
+    },
+    {
+      "name": "기술·파생·실행 보조",
+      "items": [
+        {
+          "indicator": "RSI(14)",
+          "provider": "TradingView/tv_local",
+          "url": "https://www.tradingview.com/chart/?symbol=BINANCE:BTCUSDT",
+          "access": "내장/로컬 산출 가능",
+          "local_status": "implemented_or_builtin"
+        },
+        {
+          "indicator": "PVT",
+          "provider": "TradingView/tv_local",
+          "url": "https://www.tradingview.com/chart/?symbol=BINANCE:BTCUSDT",
+          "access": "내장/로컬 산출 가능",
+          "local_status": "implemented_or_builtin"
+        },
+        {
+          "indicator": "Funding/OI/Long Short",
+          "provider": "Coinalyze/Coinglass",
+          "url": "https://coinalyze.net/bitcoin/open-interest/",
+          "access": "무료 웹 차트 + API 가능",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Liquidation Heatmap",
+          "provider": "Coinglass",
+          "url": "https://www.coinglass.com/pro/futures/LiquidationHeatMap",
+          "access": "무료 웹 차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "BTC ETF Flow",
+          "provider": "Farside",
+          "url": "https://farside.co.uk/btc/",
+          "access": "무료 웹 표/차트",
+          "local_status": "external_chart"
+        },
+        {
+          "indicator": "Mempool/Fee market",
+          "provider": "mempool.space",
+          "url": "https://mempool.space/graphs/mining/pools",
+          "access": "무료 웹 차트/API",
+          "local_status": "external_chart"
+        }
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "indicator": "Glassnode entity-adjusted 세부 코호트 일부",
+      "status": "무료 웹 차트는 Glassnode/Newhedge/Checkonchain에서 확인 후보가 있으나, 로컬 데이터 API 무료 제공은 제한될 수 있음",
+      "next_step": "TradingView Premium/Glassnode 계정 로그인 후 exact metric URL과 다운로드 가능 여부를 확정"
+    }
+  ]
+}

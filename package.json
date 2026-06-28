@@ -1,0 +1,12 @@
+{
+  "name": "tv-local-macro-onchain-vercel",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "node -e \"console.log('static + serverless build')\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
