@@ -28,24 +28,42 @@
         </article>
         <article class="chart-panel">
           <div class="panel-head">
-            <h2>VIX / 금리</h2>
+            <h2>VIX / 금리 z-score</h2>
             <a href="https://fred.stlouisfed.org/series/VIXCLS" target="_blank" rel="noreferrer">FRED</a>
           </div>
           <div id="riskChart" class="chart"></div>
         </article>
         <article class="chart-panel">
           <div class="panel-head">
-            <h2>CPI / 고용 / 달러</h2>
+            <h2>CPI / 고용 / 달러 z-score</h2>
             <a href="https://fred.stlouisfed.org/" target="_blank" rel="noreferrer">FRED</a>
           </div>
           <div id="macroChart" class="chart"></div>
         </article>
       </section>
 
+      <section class="agent-grid">
+        <article class="briefing-panel">
+          <div class="panel-head">
+            <h2>온체인 가격모델·프록시 밴드·하단 패널</h2>
+            <span class="source-meta">manual_snapshot / proxy / missing 분리</span>
+          </div>
+          <div id="onchainModels" class="model-grid"></div>
+          <div id="lowerPanels" class="badge-grid"></div>
+        </article>
+        <article class="briefing-panel">
+          <div class="panel-head">
+            <h2>오늘~다음주 Horizon</h2>
+            <span class="source-meta">H0/H1/H2/H3</span>
+          </div>
+          <div id="horizonList" class="horizon-list"></div>
+        </article>
+      </section>
+
       <section class="briefing-layout">
         <article class="briefing-panel">
           <div class="panel-head">
-            <h2>AI 장 시작 브리핑</h2>
+            <h2>장 시작 브리핑</h2>
             <span id="briefingMeta" class="source-meta">대기 중</span>
           </div>
           <div id="briefingSummary" class="briefing-summary"></div>
@@ -81,8 +99,16 @@
           <div id="sourceTable" class="source-table"></div>
         </section>
       </section>
+
+      <section class="briefing-panel">
+        <div class="panel-head">
+          <h2>지표 전수 순회 상태</h2>
+          <span class="source-meta">값·출처·스케일·차트 역할</span>
+        </div>
+        <div id="traversalTable" class="traversal-table"></div>
+      </section>
     </main>
     <script src="/static/vendor/lightweight-charts.standalone.production.js"></script>
-    <script src="/static/js/macro_onchain.js?v=vercel_20260628_1"></script>
+    <script src="/static/js/macro_onchain.js?v=vercel_20260628_2"></script>
   </body>
 </html>

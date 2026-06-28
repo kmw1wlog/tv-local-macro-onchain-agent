@@ -49,6 +49,6 @@ PATH="$HOME/.local/bin:$PATH" npx -y @steipete/oracle \
   --browser-model-strategy "${ORACLE_BROWSER_MODEL_STRATEGY:-ignore}" \
   --write-output "$OUT_FILE" \
   -p "$PROMPT" \
-  --file README.md vercel.json api/_lib.js public/index.html public/static/js/macro_onchain.js public/static/css/macro_onchain.css public/data/registry.json
+  --file README.md vercel.json api/_lib.js public/index.html public/static/js/macro_onchain.js public/static/css/macro_onchain.css public/data/registry.json public/data/source_image_mapping.json public/data/manual_snapshots.json
 
 echo "$OUT_FILE"

@@ -1,14 +1,9 @@
-const { readJson, schedulePath, sendJson } = require("./_lib");
+const { readCronRuns, readJson, schedulePath, sendJson } = require("./_lib");
 
 module.exports = async function handler(req, res) {
   sendJson(res, {
     schedule: readJson(schedulePath),
-    recent_runs: [
-      {
-        ran_at: new Date().toISOString(),
-        session: "vercel_dynamic",
-        note: "Vercel 배포본은 /api/briefing 호출 시 최신 공개 데이터를 읽고, Vercel Cron은 /api/cron을 정해진 장 시작 시간에 호출한다."
-      }
-    ]
+    recent_runs: readCronRuns(),
+    history_note: "Vercel 서버리스에서는 /tmp 런타임 히스토리만 보장된다. 영구 저장은 이후 KV/Postgres를 붙이는 단계로 남긴다."
   });
 };

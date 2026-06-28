@@ -1,0 +1,30 @@
+{
+  "004_montage.jpg": {
+    "source_doc": "004_SZgxmcm8.md",
+    "panels": ["CPI", "Oil", "RSI(14)", "PVT"],
+    "implemented_as": ["macroChart z-score CPI/Core/Food/Shelter", "derived RSI(14)", "derived PVT"],
+    "missing": ["Oil is collected as WTI but not yet separated into its own panel", "macro event-date overlay"],
+    "status": "partial"
+  },
+  "005_montage.jpg": {
+    "source_doc": "005_02Axw6S0.md",
+    "panels": ["HODL Waves", "RHODL", "LTH/STH supply"],
+    "implemented_as": ["lower panel status badges", "registry traversal records"],
+    "missing": ["actual HODL Waves time series", "actual RHODL time series", "LTH/STH supply values"],
+    "status": "missing_data"
+  },
+  "021_montage.jpg": {
+    "source_doc": "PCx6Yyz2_supply_analysis_template_20260628_KR.md",
+    "panels": ["ATS", "Whale exchange flow", "LTH accumulation", "Realized Price", "STH Realized Price", "LTH Realized Price", "CVDD", "Balanced Price", "Difficulty"],
+    "implemented_as": ["manual_snapshot RP/STH RP/LTH RP price lines", "proxy CVDD/Balanced/Difficulty price lines", "ATS/Whale missing badge"],
+    "missing": ["actual ATS value", "actual whale exchange netflow", "actual difficulty regression export"],
+    "status": "partial"
+  },
+  "036_montage.jpg": {
+    "source_doc": "SOZBShSh_detox_analysis_template_20260628_KR.md",
+    "panels": ["New Entities", "Median Transfer Volume", "Fees", "SVAB 6M+", "CDD", "Revived Supply", "URPD", "STH Supply in Profit/Loss"],
+    "implemented_as": ["registry traversal records", "cost-basis/volume-profile proxy bands"],
+    "missing": ["actual entity-adjusted URPD", "New Entities", "Fees", "SVAB", "CDD", "Revived Supply", "STH profit/loss supply"],
+    "status": "missing_data"
+  }
+}

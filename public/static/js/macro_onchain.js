@@ -27,6 +27,7 @@
     activeGroup: 0,
     charts: [],
     btcSeries: null,
+    btcChartApi: null,
   };
 
   const els = {
@@ -44,6 +45,10 @@
     scenarioList: document.getElementById("scenarioList"),
     scheduleMeta: document.getElementById("scheduleMeta"),
     sourceImages: document.getElementById("sourceImages"),
+    onchainModels: document.getElementById("onchainModels"),
+    lowerPanels: document.getElementById("lowerPanels"),
+    horizonList: document.getElementById("horizonList"),
+    traversalTable: document.getElementById("traversalTable"),
   };
 
   function makeChart(container) {
@@ -79,6 +84,7 @@
   function renderBtcChart() {
     const data = dataset("binance_btcusdt_1h");
     const chart = makeChart(els.btcChart);
+    state.btcChartApi = chart;
     if (!data || !data.bars || !data.bars.length) {
       return;
     }
@@ -91,8 +97,10 @@
     });
     state.btcSeries = candles;
     candles.setData(data.bars);
+    renderEventMarkers(candles);
     renderPriceLines();
     chart.timeScale().fitContent();
+    setTimeout(renderPriceBands, 80);
   }
 
   function renderPriceLines() {
@@ -102,12 +110,55 @@
     for (const level of state.briefing.price_levels) {
       state.btcSeries.createPriceLine({
         price: Number(level.price),
-        color: level.kind === "support" ? colors.green : colors.red,
+        color: level.chart_role === "horizontal_price_line" ? colors.purple : level.kind === "support" ? colors.green : colors.red,
         lineWidth: 1,
         lineStyle: LightweightCharts.LineStyle.Dashed,
         axisLabelVisible: true,
         title: `${level.kind === "support" ? "S" : "R"} ${level.label || ""}`.slice(0, 28),
       });
+    }
+  }
+
+  function renderEventMarkers(candles) {
+    const markers = ((state.briefing && state.briefing.event_markers) || [])
+      .filter((item) => item.time)
+      .map((item) => ({
+        time: item.time,
+        position: item.position || "aboveBar",
+        color: item.color || colors.yellow,
+        shape: item.shape || "circle",
+        text: item.text || item.id,
+      }));
+    if (markers.length && typeof candles.setMarkers === "function") {
+      candles.setMarkers(markers);
+    }
+  }
+
+  function renderPriceBands() {
+    if (!state.btcSeries || !state.briefing || !Array.isArray(state.briefing.price_bands)) {
+      return;
+    }
+    let overlay = els.btcChart.querySelector(".price-band-layer");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "price-band-layer";
+      els.btcChart.appendChild(overlay);
+    }
+    overlay.replaceChildren();
+    for (const band of state.briefing.price_bands) {
+      const high = state.btcSeries.priceToCoordinate(Number(band.high));
+      const low = state.btcSeries.priceToCoordinate(Number(band.low));
+      if (high === null || low === null) {
+        continue;
+      }
+      const top = Math.min(high, low);
+      const height = Math.max(8, Math.abs(low - high));
+      const node = document.createElement("div");
+      node.className = `price-band ${band.role || "neutral"}`;
+      node.style.top = `${top}px`;
+      node.style.height = `${height}px`;
+      node.innerHTML = `<span>${band.label}</span>`;
+      overlay.appendChild(node);
     }
   }
 
@@ -124,25 +175,48 @@
     return line;
   }
 
+  function zscoreDataset(data) {
+    if (!data || !data.points || data.points.length < 3) {
+      return data;
+    }
+    const values = data.points.map((point) => Number(point.value)).filter((value) => Number.isFinite(value));
+    const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+    const variance = values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / values.length;
+    const sd = Math.sqrt(variance) || 1;
+    return {
+      ...data,
+      label: `${data.label} z-score`,
+      points: data.points.map((point) => ({
+        time: point.time,
+        value: (Number(point.value) - mean) / sd,
+      })),
+    };
+  }
+
   function renderRiskChart() {
     const chart = makeChart(els.riskChart);
-    addLine(chart, dataset("fred_vixcls"), colors.red);
-    addLine(chart, dataset("fred_dff"), colors.yellow);
-    addLine(chart, dataset("fred_dgs10"), colors.blue);
+    addLine(chart, zscoreDataset(dataset("fred_vixcls")), colors.red);
+    addLine(chart, zscoreDataset(dataset("fred_dff")), colors.yellow);
+    addLine(chart, zscoreDataset(dataset("fred_dgs10")), colors.blue);
     chart.timeScale().fitContent();
   }
 
   function renderMacroChart() {
     const chart = makeChart(els.macroChart);
-    addLine(chart, dataset("fred_cpiaucsl"), colors.yellow);
-    addLine(chart, dataset("fred_cpilfesl"), colors.red);
-    addLine(chart, dataset("fred_payems"), colors.green);
-    addLine(chart, dataset("fred_dtwexbgs"), colors.blue);
+    addLine(chart, zscoreDataset(dataset("fred_cpiaucsl")), colors.yellow);
+    addLine(chart, zscoreDataset(dataset("fred_cpilfesl")), colors.red);
+    addLine(chart, zscoreDataset(dataset("fred_cpiufdsl")), colors.purple);
+    addLine(chart, zscoreDataset(dataset("fred_cusr0000sah1")), "#ff7b72");
+    addLine(chart, zscoreDataset(dataset("fred_payems")), colors.green);
+    addLine(chart, zscoreDataset(dataset("fred_dtwexbgs")), colors.blue);
     chart.timeScale().fitContent();
   }
 
   function formatValue(value) {
     if (value === null || value === undefined || Number.isNaN(Number(value))) {
+      if (typeof value === "string" && value.trim()) {
+        return value;
+      }
       return "-";
     }
     const number = Number(value);
@@ -168,6 +242,8 @@
       "fred_dtwexbgs",
       "fred_cpiaucsl",
       "fred_cpilfesl",
+      "fred_cpiufdsl",
+      "fred_cusr0000sah1",
       "fred_payems",
       "fred_ces0500000003",
       "fred_wtisplc",
@@ -259,7 +335,8 @@
       ...(state.briefing.briefing_sections || []).map((section) => {
         const card = document.createElement("article");
         card.className = "briefing-section";
-        card.innerHTML = `<h3>${section.heading}</h3><p>${section.body}</p>`;
+        const evidence = (section.evidence_ids || []).map((id) => `<span>${id}</span>`).join("");
+        card.innerHTML = `<h3>${section.heading}</h3><p>${section.body}</p><div class="evidence-list">${evidence}</div>`;
         return card;
       })
     );
@@ -273,8 +350,87 @@
           `<p>트리거: ${scenario.trigger}</p>`,
           `<p>지지: ${scenario.support} · 저항: ${scenario.resistance}</p>`,
           `<p>대응: ${scenario.response}</p>`,
+          `<div class="evidence-list">${(scenario.evidence_ids || []).map((id) => `<span>${id}</span>`).join("")}</div>`,
         ].join("");
         return card;
+      })
+    );
+  }
+
+  function renderOnchainPanels() {
+    if (!els.onchainModels || !state.briefing) {
+      return;
+    }
+    const models = state.briefing.onchain_price_models || [];
+    const bands = state.briefing.price_bands || [];
+    const badges = state.briefing.lower_panels || [];
+    els.onchainModels.replaceChildren(
+      ...[...models, ...bands].map((item) => {
+        const card = document.createElement("article");
+        card.className = "model-card";
+        const value = item.value_usd ? `$${formatValue(item.value_usd)}` : `$${formatValue(item.low)}-$${formatValue(item.high)}`;
+        card.innerHTML = [
+          `<div class="model-label">${item.label}</div>`,
+          `<div class="model-value">${value}</div>`,
+          `<div class="source-meta">${item.metric_status || ""} · ${item.status || ""} · ${item.band_type || item.confidence || item.density || ""}</div>`,
+        ].join("");
+        return card;
+      })
+    );
+    els.lowerPanels.replaceChildren(
+      ...badges.map((item) => {
+        const badge = document.createElement("a");
+        badge.className = "panel-badge";
+        badge.href = item.source_url;
+        badge.target = "_blank";
+        badge.rel = "noreferrer";
+        badge.innerHTML = `<strong>${item.label}</strong><span>${item.chart_role} · ${item.metric_status || item.status}</span>`;
+        return badge;
+      })
+    );
+  }
+
+  function renderHorizons() {
+    if (!els.horizonList || !state.briefing) {
+      return;
+    }
+    els.horizonList.replaceChildren(
+      ...(state.briefing.horizons || []).map((item) => {
+        const card = document.createElement("article");
+        card.className = "horizon-card";
+        card.innerHTML = [
+          `<h3>${item.horizon} · ${item.bias}</h3>`,
+          `<p>지지 ${formatValue(item.support)} · 저항 ${formatValue(item.resistance)} · 무효화 ${formatValue(item.invalidation)}</p>`,
+          `<p>${(item.required_confirmations || []).join(" / ")}</p>`,
+          `<p>사용: ${(item.used_metrics || []).join(" / ")}</p>`,
+          `<p>누락: ${(item.missing_metrics || []).join(" / ")}</p>`,
+          `<p>${item.confidence_reason || ""}</p>`,
+          `<div class="source-meta">${item.data_staleness} · confidence ${item.confidence}</div>`,
+          `<div class="evidence-list">${(item.evidence_ids || []).map((id) => `<span>${id}</span>`).join("")}</div>`,
+        ].join("");
+        return card;
+      })
+    );
+  }
+
+  function renderTraversal() {
+    if (!els.traversalTable || !state.briefing) {
+      return;
+    }
+    const records = (((state.briefing.contexts || {}).indicator_traversal || {}).records || []);
+    els.traversalTable.replaceChildren(
+      ...records.map((item) => {
+        const row = document.createElement("article");
+        row.className = "traversal-row";
+        row.innerHTML = [
+          `<div><strong>${item.indicator}</strong><span>${item.group}</span></div>`,
+          `<div>${formatValue(item.value)}</div>`,
+          `<div>${item.as_of || "-"}</div>`,
+          `<div><span class="status-pill ${item.metric_status || item.status}">${item.metric_status || item.status}</span><span>${item.status}</span></div>`,
+          `<div>${item.chart_role}</div>`,
+          `<a href="${item.source_url}" target="_blank" rel="noreferrer">${item.source}</a>`,
+        ].join("");
+        return row;
       })
     );
   }
@@ -299,12 +455,19 @@
       ["021", "ATS/고래/LTH/URPD/바닥모델"],
       ["036", "신규 유입/수수료/CDD/URPD/STH 손익"],
     ];
+    const mapping = state.briefing ? state.briefing.source_image_mapping || {} : {};
     els.sourceImages.replaceChildren(
       ...images.map(([id, label]) => {
         const card = document.createElement("article");
         card.className = "source-image-card";
         const src = `/source-images/${id}_montage.jpg`;
-        card.innerHTML = `<a href="${src}" target="_blank" rel="noreferrer">${id} · ${label}</a><img src="${src}" alt="${label}" loading="lazy" />`;
+        const map = mapping[`${id}_montage.jpg`] || {};
+        const missing = (map.missing || []).slice(0, 3).join(" / ");
+        card.innerHTML = [
+          `<a href="${src}" target="_blank" rel="noreferrer">${id} · ${label}</a>`,
+          `<img src="${src}" alt="${label}" loading="lazy" />`,
+          `<div class="image-map"><strong>${map.status || "mapping"}</strong><span>반영: ${(map.implemented_as || []).join(" / ") || "-"}</span><span>누락: ${missing || "-"}</span></div>`,
+        ].join("");
         return card;
       })
     );
@@ -347,6 +510,9 @@
       renderMacroChart();
       syncCharts();
       renderBriefing();
+      renderOnchainPanels();
+      renderHorizons();
+      renderTraversal();
       renderSchedule();
       renderSourceImages();
       renderGroups();
