@@ -727,6 +727,7 @@ function priceLevels(price, macro, artifacts) {
       evidence: model.interpretation,
       evidence_ids: [model.id],
       confidence: model.confidence,
+      as_of: model.as_of,
       chart_role: model.chart_role,
       metric_status: model.metric_status
     });

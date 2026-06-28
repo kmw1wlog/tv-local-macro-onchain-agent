@@ -108,13 +108,15 @@
       return;
     }
     for (const level of state.briefing.price_levels) {
+      const isProxy = level.metric_status === "proxy";
+      const suffix = isProxy ? " PROXY/not actual" : level.as_of ? ` ${level.as_of}` : "";
       state.btcSeries.createPriceLine({
         price: Number(level.price),
-        color: level.chart_role === "horizontal_price_line" ? colors.purple : level.kind === "support" ? colors.green : colors.red,
-        lineWidth: 1,
-        lineStyle: LightweightCharts.LineStyle.Dashed,
+        color: isProxy ? "rgba(188,140,255,0.55)" : level.chart_role === "horizontal_price_line" ? colors.purple : level.kind === "support" ? colors.green : colors.red,
+        lineWidth: isProxy ? 1 : 2,
+        lineStyle: isProxy ? LightweightCharts.LineStyle.Dotted : LightweightCharts.LineStyle.Dashed,
         axisLabelVisible: true,
-        title: `${level.kind === "support" ? "S" : "R"} ${level.label || ""}`.slice(0, 28),
+        title: `${level.kind === "support" ? "S" : "R"} ${level.label || ""}${suffix}`.slice(0, 48),
       });
     }
   }
@@ -367,12 +369,14 @@
     els.onchainModels.replaceChildren(
       ...[...models, ...bands].map((item) => {
         const card = document.createElement("article");
-        card.className = "model-card";
+        card.className = `model-card ${item.metric_status || ""}`;
         const value = item.value_usd ? `$${formatValue(item.value_usd)}` : `$${formatValue(item.low)}-$${formatValue(item.high)}`;
+        const warning = item.metric_status === "proxy" ? "실제 온체인값 아님 · 예측 근거 제외" : item.metric_status === "missing" ? "미수집 · 확인 필요" : "";
         card.innerHTML = [
           `<div class="model-label">${item.label}</div>`,
           `<div class="model-value">${value}</div>`,
           `<div class="source-meta">${item.metric_status || ""} · ${item.status || ""} · ${item.band_type || item.confidence || item.density || ""}</div>`,
+          warning ? `<div class="model-warning">${warning}</div>` : "",
         ].join("");
         return card;
       })
