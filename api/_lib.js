@@ -153,13 +153,20 @@ async function buildSeries() {
       errors
     };
   }
-  if (!datasets.find((item) => item.id === "binance_btcusdt_1h") && fs.existsSync(seriesFallbackPath)) {
+  if (fs.existsSync(seriesFallbackPath)) {
     const fallback = readJson(seriesFallbackPath);
-    const btc = (fallback.datasets || []).find((item) => item.id === "binance_btcusdt_1h");
-    if (btc) {
-      datasets.unshift({ ...btc, source: `${btc.source} fallback` });
-      const last = btc.bars[btc.bars.length - 1];
-      latest_values[btc.id] = { time: last.time, value: last.close, label: btc.label };
+    const present = new Set(datasets.map((item) => item.id));
+    for (const fallbackDataset of fallback.datasets || []) {
+      if (present.has(fallbackDataset.id)) continue;
+      const rows = fallbackDataset.bars || fallbackDataset.points || [];
+      const last = rows[rows.length - 1];
+      if (!last) continue;
+      datasets.push({ ...fallbackDataset, source: `${fallbackDataset.source} fallback` });
+      latest_values[fallbackDataset.id] = {
+        time: last.time,
+        value: last.close ?? last.value,
+        label: fallbackDataset.label
+      };
     }
   }
   return { generated_at: nowIso(), datasets, latest_values, errors };
