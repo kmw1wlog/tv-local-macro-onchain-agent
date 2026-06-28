@@ -361,9 +361,13 @@ function briefingSections(price, macro, traversal, levels) {
 }
 
 function oneLiner(price, macro, levels) {
-  const support = Math.max(...levels.filter((level) => level.kind === "support" && level.price <= price.current).map((level) => level.price), NaN);
-  const resistance = Math.min(...levels.filter((level) => level.kind === "resistance" && level.price >= price.current).map((level) => level.price), NaN);
-  return `BTC는 ${Number(price.current).toLocaleString()} 부근, 매크로 판정은 \`${macro.label}\`. 가까운 지지는 ${Number(support).toLocaleString()}. 가까운 저항은 ${Number(resistance).toLocaleString()}. 온체인 비용기준·URPD·고래 거래소 순유입은 외부 차트 확인 후 신뢰도를 갱신한다.`;
+  const supports = levels.filter((level) => level.kind === "support" && level.price <= price.current).map((level) => level.price);
+  const resistances = levels.filter((level) => level.kind === "resistance" && level.price >= price.current).map((level) => level.price);
+  const support = supports.length ? Math.max(...supports) : null;
+  const resistance = resistances.length ? Math.min(...resistances) : null;
+  const supportText = support === null ? "확인 필요" : Number(support).toLocaleString();
+  const resistanceText = resistance === null ? "확인 필요" : Number(resistance).toLocaleString();
+  return `BTC는 ${Number(price.current).toLocaleString()} 부근, 매크로 판정은 \`${macro.label}\`. 가까운 지지는 ${supportText}. 가까운 저항은 ${resistanceText}. 온체인 비용기준·URPD·고래 거래소 순유입은 외부 차트 확인 후 신뢰도를 갱신한다.`;
 }
 
 function deterministicBriefing(registry, series, session = "vercel_live") {
