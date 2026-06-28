@@ -415,7 +415,7 @@ async function qwenEnhance(briefing, registry, series) {
       method: "POST",
       headers: { authorization: `Bearer ${process.env.QWEN_API_KEY}`, "content-type": "application/json" },
       body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], temperature: 0.1 }),
-      signal: AbortSignal.timeout(8000)
+      signal: AbortSignal.timeout(15000)
     });
     if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
     const payload = await res.json();
