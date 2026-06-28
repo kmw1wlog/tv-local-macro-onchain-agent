@@ -4,6 +4,7 @@ const path = require("path");
 const root = path.join(__dirname, "..");
 const registryPath = path.join(root, "public", "data", "registry.json");
 const schedulePath = path.join(root, "public", "data", "schedule.json");
+const seriesFallbackPath = path.join(root, "public", "data", "series-fallback.json");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -64,6 +65,32 @@ async function binanceKlines(symbol = "BTCUSDT", interval = "1h", limit = 240) {
   };
 }
 
+async function coinbaseKlines(limit = 240) {
+  const end = Math.floor(Date.now() / 1000);
+  const start = end - limit * 3600;
+  const url = `https://api.exchange.coinbase.com/products/BTC-USD/candles?granularity=3600&start=${new Date(start * 1000).toISOString()}&end=${new Date(end * 1000).toISOString()}`;
+  const rows = await fetchJson(url);
+  const bars = rows
+    .map((row) => ({
+      time: Number(row[0]),
+      low: Number(row[1]),
+      high: Number(row[2]),
+      open: Number(row[3]),
+      close: Number(row[4]),
+      volume: Number(row[5])
+    }))
+    .sort((a, b) => a.time - b.time)
+    .slice(-limit);
+  return {
+    id: "binance_btcusdt_1h",
+    label: "BTCUSD 1h",
+    kind: "candles",
+    source: "Coinbase public REST fallback",
+    url,
+    bars
+  };
+}
+
 async function fredSeries(seriesId, label, limit = 420) {
   const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
   const rows = parseCsv(await fetchText(url))
@@ -85,7 +112,13 @@ async function fredSeries(seriesId, label, limit = 420) {
 
 async function buildSeries() {
   const fetchers = [
-    () => binanceKlines("BTCUSDT", "1h", 240),
+    async () => {
+      try {
+        return await binanceKlines("BTCUSDT", "1h", 240);
+      } catch (error) {
+        return coinbaseKlines(240);
+      }
+    },
     () => fredSeries("VIXCLS", "VIX"),
     () => fredSeries("DFF", "Effective Fed Funds Rate"),
     () => fredSeries("DGS10", "US 10Y Treasury Yield"),
@@ -109,6 +142,25 @@ async function buildSeries() {
       value: last.close ?? last.value,
       label: dataset.label
     };
+  }
+  if (datasets.length === 0 && fs.existsSync(seriesFallbackPath)) {
+    const fallback = readJson(seriesFallbackPath);
+    return {
+      ...fallback,
+      generated_at: nowIso(),
+      fallback: true,
+      fallback_reason: "All live serverless fetches failed in deployment runtime",
+      errors
+    };
+  }
+  if (!datasets.find((item) => item.id === "binance_btcusdt_1h") && fs.existsSync(seriesFallbackPath)) {
+    const fallback = readJson(seriesFallbackPath);
+    const btc = (fallback.datasets || []).find((item) => item.id === "binance_btcusdt_1h");
+    if (btc) {
+      datasets.unshift({ ...btc, source: `${btc.source} fallback` });
+      const last = btc.bars[btc.bars.length - 1];
+      latest_values[btc.id] = { time: last.time, value: last.close, label: btc.label };
+    }
   }
   return { generated_at: nowIso(), datasets, latest_values, errors };
 }
@@ -392,5 +444,6 @@ module.exports = {
   readJson,
   registryPath,
   schedulePath,
+  seriesFallbackPath,
   sendJson
 };
