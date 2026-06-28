@@ -409,12 +409,13 @@ async function qwenEnhance(briefing, registry, series) {
   }
   const base = (process.env.QWEN_BASE_URL || "https://dashscope.aliyuncs.com/compatible-mode/v1").replace(/\/$/, "");
   const model = process.env.QWEN_MODEL || "qwen-plus";
-  const prompt = `아래 BTC 온체인+매크로 브리핑 JSON을 한글로 보강하라. price_levels와 scenarios는 유지하고, 4개 원문 이미지의 쓰임새를 참고한 차트 오버레이 개선 질문을 qwen_notes에 포함하라. JSON object만 반환하라.\n\n${JSON.stringify({ briefing, registry_groups: registry.groups, latest_values: series.latest_values })}`;
+  const prompt = `아래 BTC 온체인+매크로 브리핑을 한글 JSON으로 짧게 보강하라. keys는 summary, briefing_sections, price_levels, scenarios, qwen_notes만 허용한다. 차트 오버레이 개선 질문도 qwen_notes에 넣어라.\n\n${JSON.stringify({ summary: briefing.summary, price_levels: briefing.price_levels, scenarios: briefing.scenarios, latest_values: series.latest_values })}`;
   try {
     const res = await fetch(`${base}/chat/completions`, {
       method: "POST",
       headers: { authorization: `Bearer ${process.env.QWEN_API_KEY}`, "content-type": "application/json" },
-      body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], temperature: 0.1 })
+      body: JSON.stringify({ model, messages: [{ role: "user", content: prompt }], temperature: 0.1 }),
+      signal: AbortSignal.timeout(8000)
     });
     if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
     const payload = await res.json();
