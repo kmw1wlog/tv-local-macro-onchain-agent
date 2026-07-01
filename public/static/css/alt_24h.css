@@ -1,0 +1,227 @@
+.alt24-shell {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.alt24-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 58px;
+  border-bottom: 1px solid #2a2d33;
+  background: #111315;
+  padding: 10px 14px;
+}
+
+.alt24-header h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.alt24-header p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.alt24-status {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.alt24-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(620px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.alt24-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #2a2d33;
+  border-radius: 8px;
+  background: #0f0f10;
+}
+
+.alt24-card.detected {
+  border-color: rgba(56, 189, 248, 0.8);
+}
+
+.alt24-card.missed {
+  border-color: rgba(148, 163, 184, 0.35);
+}
+
+.alt24-card.pump_dump {
+  background: #121013;
+}
+
+.alt24-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 38px;
+  border-bottom: 1px solid #2a2d33;
+  background: #15181c;
+  padding: 7px 9px;
+}
+
+.alt24-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.alt24-rank {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.alt24-gain {
+  color: var(--green);
+}
+
+.alt24-label,
+.alt24-trigger-badge {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  padding: 2px 5px;
+  font-size: 10px;
+  line-height: 12px;
+  white-space: nowrap;
+}
+
+.alt24-label.tradable_spike {
+  color: #86efac;
+  border-color: rgba(134, 239, 172, 0.35);
+}
+
+.alt24-label.pump_dump {
+  color: #fca5a5;
+  border-color: rgba(252, 165, 165, 0.35);
+}
+
+.alt24-label.ambiguous_spike,
+.alt24-label.censored_spike {
+  color: #fde68a;
+  border-color: rgba(253, 230, 138, 0.35);
+}
+
+.alt24-trigger-badge.detected {
+  color: #7dd3fc;
+  border-color: rgba(125, 211, 252, 0.55);
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.alt24-trigger-badge.missed {
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.28);
+}
+
+.alt24-meta {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alt24-chart-stack {
+  display: grid;
+  grid-template-rows: 270px 88px 88px 96px;
+  min-height: 542px;
+}
+
+.alt24-chart-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.alt24-chart-panel:last-child {
+  border-bottom: 0;
+}
+
+.alt24-chart {
+  position: absolute;
+  inset: 0;
+}
+
+.alt24-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.alt24-vline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1.5px solid;
+}
+
+.alt24-vline.event {
+  border-color: #f23645;
+}
+
+.alt24-vline.event15 {
+  border-color: #e879f9;
+  border-left-width: 2px;
+}
+
+.alt24-vline.trigger {
+  border-color: #38bdf8;
+  border-left-style: dashed;
+}
+
+.alt24-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(240, 185, 11, 0.08);
+  border-left: 1px solid rgba(240, 185, 11, 0.16);
+}
+
+.alt24-band.pre1h {
+  background: rgba(240, 185, 11, 0.18);
+}
+
+.alt24-band.pre3h {
+  background: rgba(240, 185, 11, 0.12);
+}
+
+.alt24-card-error {
+  padding: 18px;
+  color: #fca5a5;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+@media (max-width: 720px) {
+  .alt24-grid {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 6px;
+  }
+
+  .alt24-chart-stack {
+    grid-template-rows: 240px 78px 78px 88px;
+  }
+}

@@ -23,6 +23,10 @@
   ],
   "rewrites": [
     {
+      "source": "/alt-24h",
+      "destination": "/alt-24h.html"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     }
